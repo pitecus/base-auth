@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Authentication &amp; Authorization</title>
+    <!-- Stylesheet libraries -->
+    <link href="bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="base-auth/css/auth.min.css" rel="stylesheet">
+  </head>
+  <body ng-app="auth" ng-controller="appController">
+    <!-- Navigation Bar -->
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation" navbar-directive></div>
+
+    <!-- Main container -->
+    <div class="container" ng-view></div>
+
+    <!-- JavaScript libraries -->
+    <script data-main="base-auth/js/main" src="requirejs-2.1.15/js/require.js"></script>
+  </body>
+</html>

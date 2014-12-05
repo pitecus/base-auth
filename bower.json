@@ -1,0 +1,29 @@
+{
+  "name": "base-auth",
+  "version": "0.0.1",
+  "authors": [
+    "Leonardo Meirelles <pitecus@gmail.com>"
+  ],
+  "main": "dist/server.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "authentication",
+    "authorization"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "test"
+  ],
+  "dependencies": {
+    "bootstrap": "3.2.0",
+    "angular": "1.2.25",
+    "angular-route": "1.2.25",
+    "angular-bootstrap": "0.11.0",
+    "requirejs": "2.1.15"
+  }
+}

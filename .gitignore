@@ -1,0 +1,17 @@
+# Dist folder.
+dist/
+
+# Node modules.
+node_modules/
+
+# Bower modules.
+vendor/
+
+# Configuration with secret and access key.
+conf/app.json
+
+# RPM packages.
+*.rpm
+
+# Log
+base-auth.log

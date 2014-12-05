@@ -1,0 +1,1 @@
+# Simple authentication and authorization framework.
