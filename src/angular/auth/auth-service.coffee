@@ -10,7 +10,6 @@ define 'auth/auth-service', [
       return $http
         .get 'api/v1/user/profile'
         .then (res) ->
-          console.log res.data
           return res.data
 
     # Identify if the user is authenticated.

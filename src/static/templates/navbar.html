@@ -10,8 +10,8 @@
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-      <li ng-repeat="route in routes" data-ng-class="navClass('{{route.path}}')">
-        <a ng-href="#{{route.path}}" ng-bind="route.label">A</a>
+      <li ng-repeat="route in routes" data-ng-class="{ active: isActive('{{route.path}}')}">
+        <a ng-href="#{{route.path}}" ng-bind="route.label"></a>
       </li>
     </ul>
     <div ng-switch on="isLogged">

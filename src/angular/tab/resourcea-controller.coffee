@@ -1,12 +1,11 @@
-# Configure the Home Controller.
-define 'tab/home-controller', [
+# Configure the Private Controller.
+define 'tab/resourcea-controller', [
   'auth'
 ], (auth) ->
-  auth.controller 'homeController', [
+  auth.controller 'resourceaController', [
     '$scope'
     ($scope) ->
       # When the route start to change, un-register from the pooling service.
       $scope.$on '$routeChangeStart', ->
         console.log 'Changing routes'
-
   ]
