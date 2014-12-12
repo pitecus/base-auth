@@ -161,13 +161,13 @@ module.exports = (grunt) ->
 
     # Generate documentation from the code.
     'grock':
-      options:
-        github: false
-        index: 'README.md'
-        style: 'thin'
-        verbose: false
-        out: 'dist/static/<%= package.name %>-<%= package.version %>/docs'
-      files: [
+      'options':
+        'github': false
+        'index': 'README.md'
+        'style': 'thin'
+        'verbose': false
+        'out': 'dist/static/<%= package.name %>-<%= package.version %>/docs'
+      'files': [
         'README.md'
         'Gruntfile.coffee'
         'src/server/**/*.coffee'
@@ -175,70 +175,68 @@ module.exports = (grunt) ->
 
     # Generate the css files.
     'less':
-      build:
-        options:
-          compress: true
-          cleancss: true
-          report: 'min'
-          paths: [
+      'build':
+        'options':
+          'compress': true
+          'cleancss': true
+          'report': 'min'
+          'paths': [
             'src/less'
           ]
-        files:
+        'files':
           'dist/static/<%= package.name %>/css/auth.min.css': 'src/less/auth.less'
 
     # Monitors code change and restart the server accordingly.
     'nodemon':
       'server':
-        script: 'server.js'
-        options:
-          cwd: 'dist/server'
-          ext: 'js'
-          watch: [
+        'script': 'server.js'
+        'options':
+          'cwd': 'dist/server'
+          'ext': 'js'
+          'watch': [
             '.'
           ]
-          delay: 1000
-          legacyWatch: true
+          'delay': 1000
+          'legacyWatch': true
 
     # Watch for files and act when they change.
     'watch':
       'reload':
-        files: [
+        'files': [
           'dist/**'
         ]
-        options:
-          livereload: true
+        'options':
+          'livereload': true
       'angular':
-        files: [
+        'files': [
           'Gruntfile.coffee'
           'src/angular/**'
         ]
-        tasks: [
+        'tasks': [
           'build_angular'
         ]
       'less':
-        files: [
+        'files': [
           'Gruntfile.coffee'
           'src/less/**'
         ]
-        tasks: [
+        'tasks': [
           'build_web_less'
         ]
-        options:
-          livereload: true
       'server':
         'files': [
           'Gruntfile.coffee'
           'src/server/**/*'
         ]
-        tasks: [
+        'tasks': [
           'build_server'
         ]
       'templates':
-        files: [
+        'files': [
           'Gruntfile.coffee'
           'src/static/**'
         ]
-        tasks: [
+        'tasks': [
           'build_templates'
         ]
 
