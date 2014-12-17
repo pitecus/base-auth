@@ -8,6 +8,7 @@ module.exports = (router, db, auth) ->
     # If the user is authenticated.
     if !req.isAuthenticated()
       res.send 401
+      return
 
     # Initial values.
     _users = []
