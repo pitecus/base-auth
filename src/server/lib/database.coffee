@@ -43,12 +43,41 @@ disconnect = ->
 
 # ## Define the schemas
 UserSchema = mongoose.Schema
-  'openId': String
-  'email': String
-  'name': String
+  'email':
+    'type': String
+    'index': true
+    'unique': true
+    'required': true
+  'openId':
+    'type': String
+  'name':
+    'type': String
+    'required': true
+  'status':
+    'type': String
+    'required': true
+
+ResourceASchema = mongoose.Schema
+  # The title is required and must only characters.
+  'title':
+    'type': String
+    'required': true
+    'validate': /^[\w ]{1,}$/
+  'content':
+    'type': String
+    'required': true
+  'author':
+    # Refers to User Schema.
+    'id':
+      'type': mongoose.Schema.Types.ObjectId
+      'required': true
+    'name':
+      'type': String
+      'required': true
 
 # ## Define the models.
 User = mongoose.model 'User', UserSchema
+ResourceA = mongoose.model 'ResourceA', ResourceASchema
 
 # ## Export the module
 module.exports =
@@ -56,5 +85,7 @@ module.exports =
   disconnect: disconnect
   schemas:
     User: UserSchema
+    ResourceA: ResourceASchema
   models:
     User: User
+    ResourceA: ResourceA

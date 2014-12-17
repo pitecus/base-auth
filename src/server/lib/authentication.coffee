@@ -29,6 +29,7 @@ module.exports = (User) ->
         return done null, userDB if userDB != null
 
         # Create the user.
+        data.status = 'Pending'
         User.create data, (err2, userDB2) ->
           # Error.
           return done err if err

@@ -17,7 +17,8 @@ auth = require('./lib/authentication') db.models.User
 
 # Routes.
 routes =
-  'api_v1_user': require('./routes/auth/user') express.Router(), db, auth
+  'api_v1_self': require('./routes/api/self') express.Router(), db, auth
+  'api_v1_user': require('./routes/api/user') express.Router(), db, auth
   'auth_google': require('./routes/auth/google') express.Router(), auth.passport
 
 # Setup the Express server.
@@ -59,6 +60,7 @@ db.connect config.mongo.username, config.mongo.password, config.mongo.server, co
 server.use '/auth/google', routes.auth_google
 
 # API calls.
+server.use '/api/v1/self', routes.api_v1_self
 server.use '/api/v1/user', routes.api_v1_user
 
 # Start the server app.

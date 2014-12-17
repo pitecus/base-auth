@@ -3,8 +3,8 @@ log = require('../../lib/log') module.filename
 
 # Provide information about the user logged in and menu header.
 module.exports = (router, db, auth) ->
-  # Routing.
-  router.get '/profile', (req, res) ->
+  # GET.
+  router.get '/', (req, res) ->
     # Initial values.
     email = ''
     name = ''
@@ -20,11 +20,8 @@ module.exports = (router, db, auth) ->
 
       # Menu after logged in.
       _navbar.push
-        'label': 'Resource A'
-        'path': '/resource-a'
-      ,
-        'label': 'Resource B'
-        'path': '/resource-b'
+        'label': 'User'
+        'path': '/user'
 
     # Create navbar.
     _navbar.push

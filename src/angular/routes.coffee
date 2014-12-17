@@ -2,8 +2,7 @@
 define 'routes', [
   'auth'
   'tab/home-controller'
-  'tab/resourcea-controller'
-  'tab/resourceb-controller'
+  'tab/user-controller'
   'tab/about-controller'
 ], (auth) ->
   auth.config ['$routeProvider', ($routeProvider) ->
@@ -12,13 +11,9 @@ define 'routes', [
       templateUrl: 'base-auth/templates/home.html'
       controller: 'homeController'
     # Resource A.
-    $routeProvider.when '/resource-a',
-      templateUrl: 'base-auth/templates/resource-a.html'
-      controller: 'resourceaController'
-    # Resource B.
-    $routeProvider.when '/resource-b',
-      templateUrl: 'base-auth/templates/resource-b.html'
-      controller: 'resourcebController'
+    $routeProvider.when '/user',
+      templateUrl: 'base-auth/templates/user.html'
+      controller: 'userController'
     # About.
     $routeProvider.when '/about',
       templateUrl: 'base-auth/templates/about.html'

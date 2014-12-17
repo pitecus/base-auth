@@ -1,14 +1,13 @@
 # Authentication services.
-define 'auth/auth-service', [
+define 'api/user-service', [
   'auth'
-  'auth/session-service'
 ], (auth) ->
   # Load application.
-  auth.factory 'authService', ['$http', 'sessionService', ($http, sessionService) ->
+  auth.factory 'userService', ['$http', 'sessionService', ($http, sessionService) ->
     # Should verify if the user have access.
-    getProfile: ->
+    list: ->
       return $http
-        .get 'api/v1/user/profile'
+        .get 'api/v1/user'
         .then (res) ->
           return res.data
 
