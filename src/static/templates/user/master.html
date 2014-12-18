@@ -9,7 +9,7 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="user in list">
-          <td>{{user.name}}</td>
+          <td><a href="#/user/{{user.id}}">{{user.name}}</a></td>
           <td>{{user.email}}</td>
           <td>{{user.status}}</td>
         </tr>

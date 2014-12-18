@@ -3,6 +3,7 @@ define 'routes', [
   'auth'
   'tab/home-controller'
   'tab/user-controller'
+  'tab/user-detail-controller'
   'tab/about-controller'
 ], (auth) ->
   auth.config ['$routeProvider', ($routeProvider) ->
@@ -10,10 +11,14 @@ define 'routes', [
     $routeProvider.when '/',
       templateUrl: 'base-auth/templates/home.html'
       controller: 'homeController'
-    # Resource A.
+    # User Master.
     $routeProvider.when '/user',
-      templateUrl: 'base-auth/templates/user.html'
+      templateUrl: 'base-auth/templates/user/master.html'
       controller: 'userController'
+    # User Detail.
+    $routeProvider.when '/user/:id',
+      templateUrl: 'base-auth/templates/user/detail.html'
+      controller: 'userDetailController'
     # About.
     $routeProvider.when '/about',
       templateUrl: 'base-auth/templates/about.html'

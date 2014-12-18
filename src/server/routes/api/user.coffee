@@ -29,4 +29,25 @@ module.exports = (router, db, auth) ->
       res.type 'json'
       res.send JSON.stringify _users
 
+  # GET detail.
+  router.get '/:id', (req, res) ->
+    # If the user is authenticated.
+    if !req.isAuthenticated()
+      res.send 401
+      return
+
+    # If the user is authenticated.
+    db.models.User
+    .findOne {'id': req.param.id}
+    .sort 'name, email'
+    .exec (err, doc) ->
+      # Return the data.
+      res.type 'json'
+      console.log JSON.stringify doc
+      res.send JSON.stringify
+        'id': doc._id
+        'name': doc.name
+        'email': doc.email
+        'status': doc.status
+
   return router

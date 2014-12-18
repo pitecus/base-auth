@@ -10,7 +10,7 @@ define 'app', [
   auth.controller 'appController', ['$scope', '$location', '$route', 'selfService', 'sessionService', ($scope, $location, $route, selfService, sessionService) ->
     # Highlight the selected tab.
     $scope.isActive = (page) ->
-      return if page == $location.path() then 'active' else ''
+      return if $location.path().indexOf(page) == 0 then 'active' else ''
 
     # Loads the routes available.
     $scope.routes = []
