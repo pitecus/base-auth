@@ -1,68 +1,72 @@
-# Libraries.
-express = require 'express'
-logger = require 'morgan'
-session = require 'express-session'
-bodyParser = require 'body-parser'
+# Logging system.
+log = require('./lib/log') module.filename
+
+# Load external libraries.
+express      = require 'express'
+logger       = require 'morgan'
+bodyParser   = require 'body-parser'
 cookieParser = require 'cookie-parser'
-fs = require 'fs'
-
-# Configuration.
-config = require './conf/app.json'
-
-# Database library.
-db = require './lib/database'
-
-# Authentication library.
-auth = require('./lib/authentication') db.models.User
-
-# Routes.
-routes =
-  'api_v1_self': require('./routes/api/self') express.Router(), db, auth
-  'api_v1_user': require('./routes/api/user') express.Router(), db, auth
-  'auth_google': require('./routes/auth/google') express.Router(), auth.passport
-
-# Setup the Express server.
-expressSetup = (app) ->
-  app.set 'port', process.env.PORT || 3000
-  app.set 'query parser', 'simple'
-  app.disable 'etag'
-  app.use logger 'dev'
-  app.use express.static '../static'
-
-# Passport (Authentication)
-expressPassport = (app, auth) ->
-  app.use cookieParser()
-  app.use bodyParser.json()
-  app.use bodyParser.urlencoded extended: true
-  app.use session
-    secret: 'keyboard cat'
-    resave: true
-    saveUninitialized: true
-  app.use auth.passport.initialize()
-  app.use auth.passport.session()
+session      = require 'express-session'
 
 # Setup the application.
-server = express()
-expressSetup server
-expressPassport server, auth
+app = express()
+app.set 'port', process.env.PORT || 3000
+app.set 'query parser', 'simple'
+app.disable 'etag'
+app.use logger 'dev'
+app.use express.static '../web'
 
-# TODO: Authorization
+# Cookie parser.
+app.use cookieParser()
 
-# Mongo connection.
-db.connect config.mongo.username, config.mongo.password, config.mongo.server, config.mongo.collection
-.then ->
-  console.log 'Database connection successful!'
-, (err) ->
-  console.log 'Database connection error:', err
-  process.exit -1 if process.env.ENVIRONMENT != 'sandbox'
+# Parsing post.
+app.use bodyParser.json()
+app.use bodyParser.urlencoded extended: true
 
-# Routing system.
-server.use '/auth/google', routes.auth_google
+# Session.
+app.use session secret: 'Am9cUp3eD4EwiB1iS9Uj7o'
+
+# Passport.
+passport = require './lib/passport'
+app.use passport.initialize()
+app.use passport.session()
+
+# Passport routes.
+app.get '/auth/google/login', passport.authenticate 'google'
+app.get '/auth/google/return', passport.authenticate 'google',
+  'successRedirect': '/auth/google/cookie'
+  'failureRedirect': '/auth/google/logout'
+app.get '/auth/google/cookie', (req, res) ->
+  # Sets a cookie with the user id.
+  if req.user and req.user.id
+    res.cookie 'user_id', req.user.id,
+      'maxAge': 90000
+      'httpOnly': false
+
+  # Redirects home.
+  res.redirect '/'
+app.get '/auth/google/logout', (req, res) ->
+  res.clearCookie 'user_id'
+  req.logout()
+  res.redirect '/'
+
+# Authorization.
+authorization = require './lib/authorization'
 
 # API calls.
-server.use '/api/v1/self', routes.api_v1_self
-server.use '/api/v1/user', routes.api_v1_user
+app.use '/api/v1/users',    require './api/users'
 
-# Start the server app.
-server.listen server.get('port'), ->
-  console.log 'Express server listening on port', server.get 'port'
+# Mongo connection.
+db = require './lib/database'
+# use baseauth
+# Mongo 2.4: db.addUser( { 'user': 'baseauth', 'pwd': 'a12345', 'roles': [ 'readWrite' ] } )
+# Mongo 2.6: db.createUser( { 'user': 'baseauth', 'pwd': 'a12345', 'roles': [ { 'role': 'readWrite', 'db': 'baseauth' } ] } )
+db.connect 'baseauth', 'a12345', '127.0.0.1', 'baseauth'
+.then ->
+  log.info 'Database connection successful!'
+  # Start the server app.
+  app.listen app.get('port'), ->
+    log.info 'Express server listening on port', app.get 'port'
+, (err) ->
+  log.error 'Database connection error:' + err
+  process.exit -1

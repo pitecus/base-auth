@@ -1,8 +1,8 @@
 # Directive for Navigation Bar.
-define 'auth/navbar-directive', [
+define 'navbar/directive', [
   'auth'
 ], (auth) ->
   auth.directive 'navbarDirective', [ ->
     # Return.
-    templateUrl: 'base-auth/templates/navbar.html'
+    templateUrl: 'templates/navbar.html'
   ]

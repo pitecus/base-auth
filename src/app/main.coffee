@@ -3,11 +3,11 @@
 #
 require.config
   paths:
-    'angular': '../../../angular-1.2.25/js/angular.min'
-    'angular-route': '../../../angular-1.2.25/js/angular-route.min'
+    'angular':       '../../../static/angular-1.2.25/js/angular.min'
+    'angular-route': '../../../static/angular-1.2.25/js/angular-route.min'
     'angular-bootstrap': [
-      '../../../angular-bootstrap-0.11.0/js/ui-bootstrap.min'
-      '../../../angular-bootstrap-0.11.0/js/ui-bootstrap-tpls.min'
+      '../../../static/angular-bootstrap-0.11.0/js/ui-bootstrap.min'
+      '../../../static/angular-bootstrap-0.11.0/js/ui-bootstrap-tpls.min'
     ]
   shim:
     'angular':

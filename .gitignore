@@ -13,5 +13,8 @@ conf/app.json
 # RPM packages.
 *.rpm
 
+# Data files.
+data
+
 # Log
 base-auth.log
