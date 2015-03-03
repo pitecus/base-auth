@@ -1,12 +1,41 @@
-# Configure the Home Controller.
+# Navigation Bar Controller.
 define 'navbar/ctrl', [
-  'auth'
-], (auth) ->
-  auth.controller 'NavbarCtrl', [
+  'app'
+  'app/auth-factory'
+], (app) ->
+  app.controller 'navbarCtrl', [
     '$scope'
-    ($scope) ->
-      console.log 'Yes, yes, yes'
-      # When the route start to change, un-register from the pooling service.
-      $scope.$on '$routeChangeStart', ->
-        console.log 'Changing routes'
+    '$location'
+    '$route'
+    'appAuthFactory'
+    ($scope, $location, $route, appAuthFactory) ->
+      # Routes available.
+      $scope.routes = []
+
+      # User display.
+      $scope.displayName = ''
+
+      # Highlight the selected tab.
+      $scope.navClass = (page) ->
+        active = $location.path().indexOf page
+        return if active == 0 then 'active' else ''
+
+      # If is authenticated.
+      appAuthFactory.isAuthenticated()
+      .then (user) ->
+        # Load all routes.
+        $scope.routes = []
+        for k, v of $route.routes
+          if v.data? and v.data.label? then $scope.routes.push
+            'data': v.data
+            'path': k
+
+        # Update the display name.
+        $scope.displayName = user.displayName
+      , (error) ->
+        # Load public routes.
+        for k, v of $route.routes
+          if v.data? and v.data.label? and v.data.public then $scope.routes.push
+            'data': v.data
+            'path': k
   ]

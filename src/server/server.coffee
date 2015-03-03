@@ -40,7 +40,7 @@ app.get '/auth/google/cookie', (req, res) ->
   # Sets a cookie with the user id.
   if req.user and req.user.id
     res.cookie 'user_id', req.user.id,
-      'maxAge': 90000
+      'maxAge': 300000 # 5 minutes
       'httpOnly': false
 
   # Redirects home.

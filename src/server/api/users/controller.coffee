@@ -9,13 +9,13 @@
 mongoose = require 'mongoose'
 models = require './model'
 
-# exports.list = (req, res) ->
-#   models.find()
-#   .select 'query_title'
-#   .exec (err, data) ->
-#     return handleError res, err if err
-#     res.status 200
-#     .json data
+exports.list = (req, res) ->
+  models.find()
+  .select 'name displayName emails'
+  .exec (err, data) ->
+    return handleError res, err if err
+    res.status 200
+    .json data
 
 exports.get = (req, res) ->
   _id = new mongoose.Types.ObjectId req.params.id

@@ -9,8 +9,10 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="user in list">
-          <td><a href="#/user/{{user.id}}">{{user.name}}</a></td>
-          <td>{{user.email}}</td>
+          <td><a href="#/users/{{user._id}}">{{user.name}}</a></td>
+          <td data-ng-repeat="email in user.emails">
+            <a href="mailto:{{email.value}}">{{email.value}}</a>
+          </td>
           <td>{{user.status}}</td>
         </tr>
       </tbody>

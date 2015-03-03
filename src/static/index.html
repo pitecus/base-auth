@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:ng="http://angularjs.org">
+<html lang="en" xmlns:ng="http://angularjs.org" ng-app>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +10,9 @@
     <link href="static/bootstrap-3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="static/base-auth-0.0.1/css/auth.min.css" rel="stylesheet">
   </head>
-  <body ng-app="auth" ng-controller="appController">
+  <body>
     <!-- Navigation Bar -->
-    <div class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="NavbarCtrl" navbar-directive></div>
+    <div class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="navbarCtrl" navbar-directive></div>
 
     <!-- Main container -->
     <div class="container" ng-view></div>

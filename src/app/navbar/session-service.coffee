@@ -1,9 +1,9 @@
 # Service Session.
 define 'auth/session-service', [
-  'auth'
-], (auth) ->
+  'app'
+], (app) ->
   # Load application.
-  auth.service 'sessionService', [ =>
+  app.service 'sessionService', [ =>
     @getDisplayName = =>
       return @displayName
 

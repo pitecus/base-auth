@@ -1,8 +1,8 @@
 # Configure the Home Controller.
 define 'tab/home-controller', [
-  'auth'
-], (auth) ->
-  auth.controller 'homeController', [
+  'app'
+], (app) ->
+  app.controller 'homeController', [
     '$scope'
     ($scope) ->
       # When the route start to change, un-register from the pooling service.
