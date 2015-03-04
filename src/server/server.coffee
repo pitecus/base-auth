@@ -34,21 +34,19 @@ app.use passport.session()
 # Passport routes.
 app.get '/auth/google/login', passport.authenticate 'google'
 app.get '/auth/google/return', passport.authenticate 'google',
-  'successRedirect': '/auth/google/cookie'
+  'successRedirect': '/'
   'failureRedirect': '/auth/google/logout'
-app.get '/auth/google/cookie', (req, res) ->
-  # Sets a cookie with the user id.
-  if req.user and req.user.id
-    res.cookie 'user_id', req.user.id,
-      'maxAge': 300000 # 5 minutes
-      'httpOnly': false
-
-  # Redirects home.
-  res.redirect '/'
 app.get '/auth/google/logout', (req, res) ->
   res.clearCookie 'user_id'
   req.logout()
   res.redirect '/'
+# Update the cookie after each request.
+app.use (req, res, next) ->
+  if req.user and req.user.id
+    res.cookie 'user_id', req.user.id,
+      'maxAge': 300000 # 5 minutes
+      'httpOnly': false
+  next()
 
 # Authorization.
 authorization = require './lib/authorization'
